@@ -36,8 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'constance',
+    'constance.backends.database',
     'subscriptions',
-    'south'
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,6 +68,16 @@ DATABASES = {
     }
 }
 
+#django-constance settings
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+from datetime import datetime
+CONSTANCE_CONFIG = {
+    'SITE_ADMIN': ('Gabriel Elkind','The person to contact regarding this websites inferestructure'),
+    'SITE_ADMIN_EMAIL':('gwelkind@gmail.com','The email at which to contact the site administrater'),
+    'ENROLLMENT_DEADLINE':(datetime.now(), 'The website will not accept applications after this date'),
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -84,3 +96,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+TEMPLATE_DIRS = BASE_DIR + '/templates/'
