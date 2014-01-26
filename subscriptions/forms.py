@@ -23,16 +23,17 @@ class CoopUserForm(forms.ModelForm):
         print("errors: " + str(self.errors))
         return self.cleaned_data
 
-class LogInForm(forms.Form):
+class LoginForm(forms.Form):
     username = fields.CharField()
     password = fields.CharField()
 
     def clean(self):
+        data = self.cleaned_data
         try:
-            thisUser = User.objects.get(username=self.cleaned_data['username'])
+            thisUser = User.objects.get(username=data['username'])
         except:
             raise ValidationError("No such username, it should be your Wesleyan account name without the '@wesleyan.edu'")
-        if not thisUser.check_password(password):
+        if not thisUser.check_password(data['password']):
             raise ValidationError("Incorrect Password")
         return self.cleaned_data
         
